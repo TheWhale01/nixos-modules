@@ -3,14 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nvim-config = {
+      url = "github:TheWhale01/nvim-config";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, ... }: {
     nixosModules = {
-      btop = import ./btop.nix;
-      git = import ./git.nix;
-      neovim = import ./neovim.nix;
-      zsh = import ./zsh.nix;
       default = { ... }: {
         imports = [
           ./btop.nix
