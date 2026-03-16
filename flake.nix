@@ -9,9 +9,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }: {
+  outputs = { self, nixpkgs, ... }@inputs: {
     nixosModules = {
       default = { ... }: {
+	specialArgs = { inherit inputs; };
         imports = [
           ./btop.nix
           ./git.nix
