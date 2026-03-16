@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ nvim-config, pkgs, ... }:
 
 {
 	programs.neovim = {
@@ -12,5 +12,5 @@
 			cargo
 		];
 	};
-	xdg.configFile.nvim.source = inputs.nvim-config;
+	xdg.configFile.nvim.source = nvim-config;
 }

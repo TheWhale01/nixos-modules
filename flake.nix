@@ -9,15 +9,24 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, nvim-config, ... }@inputs: {
     nixosModules = {
       default = { ... }: {
-	specialArgs = { inherit inputs; };
+        _module.args = { inherit inputs; };
         imports = [
-          ./btop.nix
-          ./git.nix
+          self.nixosModules.btop
+          self.nixosModules.git
+          self.nixosModules.zsh
+          self.nixosModules.neovim
+        ];
+      };
+      btop = import ./btop.nix;
+      git = import ./git.nix;
+      zsh = import ./zsh.nix;
+      neovim = {
+        _module.args.nvim-config = nvim-config;
+        imports = [
           ./neovim.nix
-          ./zsh.nix
         ];
       };
     };
