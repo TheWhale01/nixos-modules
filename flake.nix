@@ -11,15 +11,6 @@
 
   outputs = { self, nixpkgs, nvim-config, ... }@inputs: {
     nixosModules = {
-      default = { ... }: {
-        _module.args = { inherit inputs; };
-        imports = [
-          self.nixosModules.btop
-          self.nixosModules.git
-          self.nixosModules.zsh
-          self.nixosModules.neovim
-        ];
-      };
       btop = import ./btop.nix;
       git = import ./git.nix;
       zsh = import ./zsh.nix;
@@ -28,6 +19,21 @@
         imports = [
           ./neovim.nix
         ];
+      };
+      tailscale = import ./tailscale.nix;
+      homeManager = { ... }: {
+        _module.args = { inherit inputs; };
+        imports = [
+          self.nixosModules.btop
+          self.nixosModules.git
+          self.nixosModules.zsh
+          self.nixosModules.neovim
+        ];
+      };
+      system = { ... }: {
+        imports = [
+	  self.nixosModules.tailscale
+	];
       };
     };
   };
